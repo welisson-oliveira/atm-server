@@ -4,15 +4,16 @@ import br.com.welisson.atm.domain.AbstractController;
 import br.com.welisson.atm.domain.Client;
 import br.com.welisson.atm.domain.ClientService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/atm/client")
-@AllArgsConstructor
 public class ClientController extends AbstractController {
 
+    @Autowired
     private ClientService clientService;
 
     @PostMapping("/create")

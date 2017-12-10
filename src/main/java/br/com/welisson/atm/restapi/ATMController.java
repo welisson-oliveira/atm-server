@@ -2,6 +2,7 @@ package br.com.welisson.atm.restapi;
 
 import br.com.welisson.atm.domain.*;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/atm")
-@AllArgsConstructor
 public class ATMController extends AbstractController {
 
-    private final ATMService atmService;
+    @Autowired
+    private ATMService atmService;
 
     @PostMapping(value="/login")
     public Client login(@RequestBody final Login login){

@@ -1,4 +1,4 @@
-package br.com.welisson.atm;
+package br.com.welisson.atm.config;
 
 import org.apache.catalina.security.SecurityConfig;
 import org.springframework.context.annotation.*;
