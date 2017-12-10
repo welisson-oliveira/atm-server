@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
 
 @AllArgsConstructor
 @Getter
@@ -29,4 +31,5 @@ public class Login {
     private Client client;
 
     private Login(){}
+
 }

@@ -4,8 +4,10 @@ package br.com.welisson.atm.domain;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+@ControllerAdvice
 public abstract class AbstractController {
 
     private final Logger logger = Logger.getLogger("filemanager");

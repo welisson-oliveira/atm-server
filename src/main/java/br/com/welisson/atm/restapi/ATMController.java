@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/atm")
-public class ATMController extends AbstractController {
+public class ATMController {
 
     @Autowired
     private ATMService atmService;

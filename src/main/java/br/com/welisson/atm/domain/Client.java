@@ -6,6 +6,8 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "CLIENT")
@@ -50,4 +52,5 @@ public class Client {
     public boolean sameBalance(Long balance) {
         return this.balance.equals(balance);
     }
+
 }

@@ -18,7 +18,7 @@ public class FinalCedule extends SubtractMoney {
             throw new ATMException("Informe um valor multiplo de 10");
         }
 
-        throw new ATMException("Informe um valor multiplo de 10");
+        throw new ATMException("Impossivel sacar valor negativo");
 
     }
 }
