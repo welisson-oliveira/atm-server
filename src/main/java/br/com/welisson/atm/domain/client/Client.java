@@ -1,13 +1,12 @@
-package br.com.welisson.atm.domain;
+package br.com.welisson.atm.domain.client;
 
+import br.com.welisson.atm.domain.exception.NegativeBalanceException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Objects;
 
 @Entity
 @Table(name = "CLIENT")
@@ -42,7 +41,7 @@ public class Client {
             balanceTemp = this.balance - value;
         }
         if(balanceTemp < 0){
-            throw new ATMException("O Cliente não pode ter saldo negativo");
+            throw new NegativeBalanceException("The client can not have negative balance");
         }
 
         this.balance = balanceTemp;

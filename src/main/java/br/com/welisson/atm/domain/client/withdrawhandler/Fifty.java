@@ -1,7 +1,7 @@
-package br.com.welisson.atm.domain.withdrawhandler;
+package br.com.welisson.atm.domain.client.withdrawhandler;
 
-import br.com.welisson.atm.domain.Bill;
-import br.com.welisson.atm.domain.Money;
+import br.com.welisson.atm.domain.client.Bill;
+import br.com.welisson.atm.domain.client.Money;
 
 public class Fifty extends SubtractMoney {
 
@@ -14,17 +14,12 @@ public class Fifty extends SubtractMoney {
     public Money resolve(SubtractMoney next, Long balance, Long value, Money money) {
         if (shouldResolve(balance, value)) {
 
-            int cedules = 0;
-            while (balance >= value && value >= Bill.FIFTY.getBill() && value > 0) {
-                balance -= Bill.FIFTY.getBill();
-                value -= Bill.FIFTY.getBill();
-                cedules++;
-            }
+            money.addFifty(subtractValue(balance, value, Bill.FIFTY));
 
-            money.addFifty(cedules);
             if(value == 0){
                 return money;
             }
+            return next.resolve(new Ten(), getBalance(), getValue(), money);
         }
         return next.resolve(new Ten(), balance, value, money);
     }

@@ -1,6 +1,5 @@
 package br.com.welisson.atm;
 
-import br.com.welisson.atm.config.SqlExecuter;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

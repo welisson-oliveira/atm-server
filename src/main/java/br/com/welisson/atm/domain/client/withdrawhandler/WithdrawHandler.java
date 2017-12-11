@@ -1,6 +1,6 @@
-package br.com.welisson.atm.domain.withdrawhandler;
+package br.com.welisson.atm.domain.client.withdrawhandler;
 
-import br.com.welisson.atm.domain.Money;
+import br.com.welisson.atm.domain.client.Money;
 
 public class WithdrawHandler {
 

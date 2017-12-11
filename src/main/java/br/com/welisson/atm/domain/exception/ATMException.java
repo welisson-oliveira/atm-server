@@ -1,9 +1,9 @@
-package br.com.welisson.atm.domain;
+package br.com.welisson.atm.domain.exception;
 
 import lombok.Getter;
 
 @Getter
-public class ATMException extends RuntimeException {
+public abstract class ATMException extends RuntimeException {
     private String message;
 
     public ATMException(String message) {

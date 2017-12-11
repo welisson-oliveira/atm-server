@@ -1,4 +1,4 @@
-package br.com.welisson.atm.domain;
+package br.com.welisson.atm.domain.client;
 
 public enum Bill {
     HUNDRED(100),

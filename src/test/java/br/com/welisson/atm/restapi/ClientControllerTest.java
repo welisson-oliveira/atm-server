@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.web.util.NestedServletException;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -21,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ClientControllerTest extends AbstractTests {
 
     @Test
-    public void createClient() throws Exception{
+    public void createClient() throws Exception {
 
         final String content = "{\"name\":\"User Test\",\"login\":{\"" +
                 "account\":\"QWERT\",\"password\":\"QWERT\"},\"balance\":1000}";
@@ -34,7 +35,34 @@ public class ClientControllerTest extends AbstractTests {
     }
 
     @Test
-    public void updateClient()throws Exception{
+    public void createClientWithExistingAccount() throws Exception {
+
+        final String content = "{\"name\":\"User Test\",\"login\":{\"" +
+                "account\":\"123\",\"password\":\"QWERT\"},\"balance\":1000}";
+
+        try {
+            final String jsonResult = post("/atm/client/create", content, status().isCreated());
+            Assert.assertTrue(false);
+        } catch (NestedServletException e) {
+            Assert.assertEquals(e.getCause().getMessage(), "Account already exists!");
+        }
+    }
+
+    @Test
+    public void updateClientWithExistingAccount() throws Exception {
+
+        final String content = "{\"id\":1,\"name\":\"Welisson\",\"login\":{\"id\":1,\"account\":\"ABC\",\"password\":\"123\"},\"balance\":1000}";
+
+        try {
+            final String jsonResult = put("/atm/client/update", content, status().isOk());
+            Assert.assertTrue(false);
+        } catch (NestedServletException e) {
+            Assert.assertEquals(e.getCause().getMessage(), "Account already exists");
+        }
+    }
+
+    @Test
+    public void updateClient() throws Exception {
 
         final String content = "{\"id\":1,\"name\":\"Welisson\",\"login\":{\"id\":1,\"account\":\"123\",\"password\":\"123\"},\"balance\":1000}";
 
@@ -45,7 +73,20 @@ public class ClientControllerTest extends AbstractTests {
     }
 
     @Test
-    public void dropClient() throws Exception{
+    public void updateBalance() throws Exception {
+
+        final String content = "{\"id\":1,\"name\":\"Welisson\",\"login\":{\"id\":1,\"account\":\"123\",\"password\":\"123\"},\"balance\":10000}";
+        try {
+            final String jsonResult = put("/atm/client/update", content, status().isInternalServerError());
+            Assert.assertTrue(false);
+        } catch (NestedServletException e) {
+            Assert.assertEquals(e.getCause().getMessage(), "Balance can not be changed");
+        }
+
+    }
+
+    @Test
+    public void dropClient() throws Exception {
         final HttpStatus status = delete("/atm/client/delete/1", status().isNoContent());
 
         Assert.assertEquals(HttpStatus.NO_CONTENT, status);
@@ -56,7 +97,7 @@ public class ClientControllerTest extends AbstractTests {
     }
 
     @Test
-    public void listClient() throws Exception{
+    public void listClient() throws Exception {
 
         final String jsonResult = get("/atm/client/list", status().isOk());
 

@@ -1,4 +1,4 @@
-package br.com.welisson.atm.config;
+package br.com.welisson.atm;
 
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.SQLExec;

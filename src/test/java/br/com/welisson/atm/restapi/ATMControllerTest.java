@@ -41,7 +41,7 @@ public class ATMControllerTest extends AbstractTests {
 
             Assert.assertTrue(false);
         } catch (NestedServletException e) {
-            Assert.assertEquals(e.getCause().getMessage(), "Conta e/ou senha inválida");
+            Assert.assertEquals(e.getCause().getMessage(), "Invalid account e/or password");
         }
 
     }
@@ -69,7 +69,7 @@ public class ATMControllerTest extends AbstractTests {
 
             Assert.assertTrue(false);
         } catch (NestedServletException e) {
-            Assert.assertEquals(e.getCause().getMessage(), "Saldo insuficiente");
+            Assert.assertEquals(e.getCause().getMessage(), "Insufficient balance");
         }
     }
 
@@ -81,7 +81,7 @@ public class ATMControllerTest extends AbstractTests {
 
             Assert.assertTrue(false);
         } catch (NestedServletException e) {
-            Assert.assertEquals(e.getCause().getMessage(), "Informe um valor multiplo de 10");
+            Assert.assertEquals(e.getCause().getMessage(), "value is not a multiple of 10");
         }
     }
 
@@ -92,7 +92,7 @@ public class ATMControllerTest extends AbstractTests {
 
             Assert.assertTrue(false);
         } catch (NestedServletException e) {
-            Assert.assertEquals(e.getCause().getMessage(), "Impossivel sacar valor negativo");
+            Assert.assertEquals(e.getCause().getMessage(), "Impossible to draw negative");
         }
     }
 
@@ -104,7 +104,7 @@ public class ATMControllerTest extends AbstractTests {
 
             Assert.assertTrue(false);
         } catch (NestedServletException e) {
-            Assert.assertEquals(e.getCause().getMessage(), "Impossivel sacar valor negativo");
+            Assert.assertEquals(e.getCause().getMessage(), "Impossible to draw negative");
         }
     }
 

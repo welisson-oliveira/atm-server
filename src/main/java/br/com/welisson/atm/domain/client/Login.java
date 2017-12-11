@@ -1,13 +1,10 @@
-package br.com.welisson.atm.domain;
+package br.com.welisson.atm.domain.client;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Objects;
 
 @AllArgsConstructor
 @Getter

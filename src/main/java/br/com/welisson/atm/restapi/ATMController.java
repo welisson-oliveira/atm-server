@@ -1,6 +1,6 @@
 package br.com.welisson.atm.restapi;
 
-import br.com.welisson.atm.domain.*;
+import br.com.welisson.atm.domain.client.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
