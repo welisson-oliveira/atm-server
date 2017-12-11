@@ -53,8 +53,8 @@ public class ClientService {
         return clientRepository.save(client);
     }
 
-    public Client updateClient(final Client client){
-        Client clientDb = getClient(client.getId());
+    public Client updateClient(final Client client, final Long id){
+        Client clientDb = getClient(id);
         if(!client.sameBalance(clientDb.getBalance())){
             throw new ModifiedBalanceException("Balance can not be changed");
         }

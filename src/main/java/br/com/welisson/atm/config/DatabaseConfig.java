@@ -1,5 +1,6 @@
 package br.com.welisson.atm.config;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -7,13 +8,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.sql.DataSource;
+import java.beans.PropertyVetoException;
 import java.util.Properties;
 
 @Configuration
@@ -35,13 +35,32 @@ public class DatabaseConfig {
     @Value("${spring.datasource.url}")
     private String urlBD;
 
+    @Value("${hibernate.c3p0.max_size}")
+    private String CONN_POOL_MAX_SIZE;
+
+    @Value("${hibernate.c3p0.min_size}")
+    private String CONN_POOL_MIN_SIZE;
+
+    @Value("${hibernate.c3p0.idle_test_period}")
+    private String CONN_POOL_IDLE_PERIOD;
+
     @Bean
-    public DataSource dataSource(Environment environment) {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(driver);
-        dataSource.setUrl(urlBD);
-        dataSource.setUsername(username);
+    public ComboPooledDataSource dataSource(){
+        ComboPooledDataSource dataSource = new ComboPooledDataSource("jupiter");
+
+        try {
+            dataSource.setDriverClass(driver);
+        } catch (PropertyVetoException pve){
+            System.out.println("Cannot load datasource driver (" + driver +") : " + pve.getMessage());
+            return null;
+        }
+        dataSource.setJdbcUrl(urlBD);
+        dataSource.setUser(username);
         dataSource.setPassword(password);
+        dataSource.setMinPoolSize(Integer.parseInt(CONN_POOL_MIN_SIZE));
+        dataSource.setMaxPoolSize(Integer.parseInt(CONN_POOL_MAX_SIZE));
+        dataSource.setMaxIdleTime(Integer.parseInt(CONN_POOL_IDLE_PERIOD));
+
         return dataSource;
     }
 
@@ -49,7 +68,7 @@ public class DatabaseConfig {
      * Declare the JPA entity manager factory.
      */
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(@Qualifier("dataSource") DataSource dataSource) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(@Qualifier("dataSource") ComboPooledDataSource dataSource) {
         LocalContainerEntityManagerFactoryBean entityManagerFactory =
                 new LocalContainerEntityManagerFactoryBean();
 

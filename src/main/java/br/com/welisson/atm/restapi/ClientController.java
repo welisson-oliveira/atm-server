@@ -15,25 +15,25 @@ public class ClientController {
     @Autowired
     private ClientService clientService;
 
-    @PostMapping("/create")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Client createClient(@RequestBody final Client client){
         return clientService.createClient(client);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Client updateClient(@RequestBody final Client client){
-        return clientService.updateClient(client);
+    public Client updateClient(@RequestBody final Client client, @PathVariable("id") final Long id){
+        return clientService.updateClient(client, id);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteClient(@PathVariable("id") final Long id){
         clientService.deleteClient(id);
     }
 
-    @GetMapping("/list")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Client> listClients(){
         return clientService.findAllClients();

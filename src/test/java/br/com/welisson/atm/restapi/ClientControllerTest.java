@@ -27,7 +27,7 @@ public class ClientControllerTest extends AbstractTests {
         final String content = "{\"name\":\"User Test\",\"login\":{\"" +
                 "account\":\"QWERT\",\"password\":\"QWERT\"},\"balance\":1000}";
 
-        final String jsonResult = post("/atm/client/create", content, status().isCreated());
+        final String jsonResult = post("/atm/client", content, status().isCreated());
 
         JSONAssert
                 .assertEquals("{\"id\":3,\"name\":\"User Test\",\"login\":{\"id\":3,\"" +
@@ -41,7 +41,7 @@ public class ClientControllerTest extends AbstractTests {
                 "account\":\"123\",\"password\":\"QWERT\"},\"balance\":1000}";
 
         try {
-            final String jsonResult = post("/atm/client/create", content, status().isCreated());
+            final String jsonResult = post("/atm/client", content, status().isCreated());
             Assert.assertTrue(false);
         } catch (NestedServletException e) {
             Assert.assertEquals(e.getCause().getMessage(), "Account already exists!");
@@ -54,7 +54,7 @@ public class ClientControllerTest extends AbstractTests {
         final String content = "{\"id\":1,\"name\":\"Welisson\",\"login\":{\"id\":1,\"account\":\"ABC\",\"password\":\"123\"},\"balance\":1000}";
 
         try {
-            final String jsonResult = put("/atm/client/update", content, status().isOk());
+            final String jsonResult = put("/atm/client/1", content, status().isOk());
             Assert.assertTrue(false);
         } catch (NestedServletException e) {
             Assert.assertEquals(e.getCause().getMessage(), "Account already exists");
@@ -66,7 +66,7 @@ public class ClientControllerTest extends AbstractTests {
 
         final String content = "{\"id\":1,\"name\":\"Welisson\",\"login\":{\"id\":1,\"account\":\"123\",\"password\":\"123\"},\"balance\":1000}";
 
-        final String jsonResult = put("/atm/client/update", content, status().isOk());
+        final String jsonResult = put("/atm/client/1", content, status().isOk());
 
         JSONAssert
                 .assertEquals("{\"id\":1,\"name\":\"Welisson\",\"login\":{\"id\":1,\"account\":\"123\",\"password\":\"123\"},\"balance\":1000}", jsonResult, true);
@@ -77,7 +77,7 @@ public class ClientControllerTest extends AbstractTests {
 
         final String content = "{\"id\":1,\"name\":\"Welisson\",\"login\":{\"id\":1,\"account\":\"123\",\"password\":\"123\"},\"balance\":10000}";
         try {
-            final String jsonResult = put("/atm/client/update", content, status().isInternalServerError());
+            final String jsonResult = put("/atm/client/1", content, status().isInternalServerError());
             Assert.assertTrue(false);
         } catch (NestedServletException e) {
             Assert.assertEquals(e.getCause().getMessage(), "Balance can not be changed");
@@ -87,11 +87,11 @@ public class ClientControllerTest extends AbstractTests {
 
     @Test
     public void dropClient() throws Exception {
-        final HttpStatus status = delete("/atm/client/delete/1", status().isNoContent());
+        final HttpStatus status = delete("/atm/client/1", status().isNoContent());
 
         Assert.assertEquals(HttpStatus.NO_CONTENT, status);
 
-        final String jsonResult = get("/atm/client/list", status().isOk());
+        final String jsonResult = get("/atm/client", status().isOk());
 
         JSONAssert.assertEquals("[{\"id\":2,\"name\":\"User 2\",\"login\":{\"id\":2,\"account\":\"ABC\",\"password\":\"ABC\"},\"balance\":1000}]", jsonResult, true);
     }
@@ -99,7 +99,7 @@ public class ClientControllerTest extends AbstractTests {
     @Test
     public void listClient() throws Exception {
 
-        final String jsonResult = get("/atm/client/list", status().isOk());
+        final String jsonResult = get("/atm/client", status().isOk());
 
         JSONAssert.assertEquals("[{\"id\":1,\"name\":\"Welisson Oliveira\",\"login\":{\"id\":1,\"account\":\"123\",\"password\":\"123\"},\"balance\":1000},{\"id\":2,\"name\":\"User 2\",\"login\":{\"id\":2,\"account\":\"ABC\",\"password\":\"ABC\"},\"balance\":1000}]", jsonResult, true);
     }
