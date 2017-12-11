@@ -2,6 +2,7 @@ package br.com.welisson.atm;
 
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,21 +21,31 @@ public class AbstractTests {
 
     private MockMvc mockMvc;
 
+    @Value("${spring.datasource.driverClassName}")
+    private String driver;
+
+    @Value("${spring.datasource.password}")
+    private String password;
+
+    @Value("${spring.datasource.username}")
+    private String username;
+
+    @Value("${spring.datasource.url.test}")
+    private String urlBD;
+
     @Before
     public void config(){
-        sqlExecuter("./src/test/resources/dropTable.sql");
-        sqlExecuter("./src/test/resources/createTable.sql");
-        sqlExecuter("./src/main/resources/data.sql");
+        sqlExecuter("./src/test/resources/before.sql");
     }
 
 
     private void sqlExecuter(final String pathName){
         final SqlExecuter executer = new SqlExecuter();
         executer.setSrc(new File(pathName));
-        executer.setDriver("org.h2.Driver");
-        executer.setPassword("");
-        executer.setUserid("sa");
-        executer.setUrl("jdbc:h2:file:~/h2/testdb");
+        executer.setDriver(driver);
+        executer.setPassword(password);
+        executer.setUserid(username);
+        executer.setUrl(urlBD);
         executer.execute();
     }
 

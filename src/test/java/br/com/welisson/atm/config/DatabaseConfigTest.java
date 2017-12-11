@@ -18,7 +18,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-public class DatabaseConfig {
+public class DatabaseConfigTest {
 
     @Autowired
     private Environment env;
@@ -32,7 +32,7 @@ public class DatabaseConfig {
     @Value("${spring.datasource.username}")
     private String username;
 
-    @Value("${spring.datasource.url}")
+    @Value("${spring.datasource.url.test}")
     private String urlBD;
 
     @Bean

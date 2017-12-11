@@ -20,14 +20,6 @@ public class Hundred extends SubtractMoney {
 
         if(shouldResolve(balance, value)){
 
-//            int cedules = 0;
-//            while(balance >= value && value >= Bill.HUNDRED.getBill() && value > 0) {
-//                balance -= Bill.HUNDRED.getBill();
-//                value -= Bill.HUNDRED.getBill();
-//                cedules++;
-//            }
-
-
             money.addHundred(subtractValue(balance, value, Bill.HUNDRED));
 
             if(value == 0){

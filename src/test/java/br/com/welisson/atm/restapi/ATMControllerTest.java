@@ -1,7 +1,7 @@
 package br.com.welisson.atm.restapi;
 
 import br.com.welisson.atm.AbstractTests;
-import br.com.welisson.atm.config.DatabaseConfig;
+import br.com.welisson.atm.config.DatabaseConfigTest;
 import br.com.welisson.atm.config.SpringContextTestConfiguration;
 import br.com.welisson.atm.config.WebConfig;
 import org.junit.Assert;
@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {SpringContextTestConfiguration.class, WebConfig.class, DatabaseConfig.class})
+@ContextConfiguration(classes = {SpringContextTestConfiguration.class, WebConfig.class, DatabaseConfigTest.class})
 public class ATMControllerTest extends AbstractTests {
 
     @Test
